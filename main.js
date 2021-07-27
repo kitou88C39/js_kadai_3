@@ -1,51 +1,51 @@
 'use strict';
 {
-//値を読み取る
+//inputタグを取得して変数に入れる
 const newtask = document.getElementById('newtask');
 
 // 入力された値をリストに追加する
 const add = document.getElementById('add');
 
-// 連番用idを用意
-let id = 0;
 add.addEventListener('click',() => {
-
-if(newtask.value !=='') {
-// TODOリストに表示する
-const list = document.getElementById('list'); 
-
-// div要素を作成
-const wrapper = document.createElement('div');
-wrapper.className = 'wrap';
-const divone = document.createElement('div');
-const divtwo = document.createElement('div');
-
-// 作成した要素に追加 ①
-list.appendChild(wrapper);
-wrapper.appendChild(divone);
-wrapper.appendChild(divtwo);
-
-// p.button要素の作成 ②
-const p = document.createElement('p');
-p.className = 'divonep';
-
-const btnone = document.createElement('button');
-btnone.innerHTML = '削除';
-btnone.className = 'btnone';
-const btntwo = document.createElement('button');
-btntwo.innerHTML = '作業中';
-btntwo.className = 'btntwo';
-
-// ②を①に追加
-wrapper.insertBefore(p, divone);
-wrapper.insertBefore(btnone, divtwo);
-wrapper.insertBefore(btntwo, btnone);
-
-// inputで読み取った値を表示
-p.innerHTML = newtask.value;
-// idを表示
-p.innerHTML += `${++id}`;
-
-}    
-});
+if(newtask.value =='') {
+    return
 }
+  // olタグを取得して変数に入れる
+  const list = document.getElementById('list')
+
+  const id = list.children.length + 1;
+  const comment = newtask.value;
+
+  // 分かりやすい変数名をつけます
+  const workButton = document.createElement('button');
+  workButton.innerHTML = '作業中';
+
+  const deleteButton = document.createElement('button');
+  deleteButton.innerHTML = '削除';
+  // テーブルの行に必要なデータの配列を作成します
+  const cloumns = [id, comment, workButton, deleteButton]
+
+  //　テーブルの行を作成します
+  const tr = document.createElement('tr');
+
+  // 配列の中身を一つずつ取り出して処理をします
+  cloumns.forEach((cloumn) => {
+  // テーブルの列を作成します
+  const td = document.createElement('td');
+
+  // HTMLタグ処理を変更
+  if (cloumn instanceof HTMLElement) {
+      td.appendChild(cloumn)
+  } else {
+    td.innerText = cloumn;
+  }
+  // 行に列を追加します
+    tr.appendChild(td);
+  })
+  //テーブルに行を追加
+  list.appendChild(tr);
+
+  newtask.value = ''
+})
+}
+    
