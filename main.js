@@ -9,7 +9,7 @@ const add = document.getElementById('add');
 //次にdeleteTask関数を作成し、deleteTaskの引数には削除したいタスクのIDを渡します
 //remove関数を呼び出してタスク(テーブルの一行の要素)を削除します
 const deleteTask = (taskId) => {
- const task = document.getElementById('list');
+ const task = document.getElementById(taskId);
  task.remove();
 }
 //idの変数を用意
