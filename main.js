@@ -103,8 +103,17 @@ add.addEventListener('click',() => {
   const comment = newtask.value;
   
   // 分かりやすい変数名をつけます
-  const workButton = document.createElement('button');
-  workButton.innerHTML = '作業中';
+   const workButton = document.createElement('button');
+   workButton.innerHTML = '作業中';
+   //作業中の状態でボタンをクリックすると完了へ変更される
+　　//完了の状態でボタンをクリックすると作業中へ変更される
+   workButton.addEventListener('click', () => {
+　　if (workButton.innerHTML === '作業中') {
+　　　workButton.innerHTML = '完了';
+　　} else {
+　　　workButton.innerHTML = '作業中';
+　　}
+　});
 
   const deleteButton = document.createElement('button');
   deleteButton.innerHTML = '削除';
