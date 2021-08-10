@@ -141,6 +141,30 @@ add.addEventListener('click',() => {
   list.appendChild(tr);
   newtask.value = '' 
 })
+// 下記の部分が自身で調べて入力したソース
+　const radioButtonAll = document.getElementById('radio-all-select');
+　const radioButtonWorking = document.getElementById('radio-working-select');
+　const radioButtonDone = document.getElementById('radio-done-select');
+
+  const filterTasks = () => {
+    if(radioButtonAll.checked) {
+      return showTasks(tasks);
+    } else if (radioButtonWorking.checked) {
+      const doingTasks = tasks.filter(task => {
+        return task.status === '作業中'
+      })
+    　return showTasks(doingTasks);
+    } else if (radioButtonDone.checked)　{
+      const doneTasks = tasks.filter(task => {
+        return task.status === '完了'
+      })
+    return showTasks(doneTasks);
+    }
+  };
+   radioButton.forEach((status,　number) => {
+     radioButton[number].addEventListener('click', () => {
+      filterTasks();
+     });
+   });
+
    }
-
-
