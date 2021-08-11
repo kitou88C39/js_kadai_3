@@ -138,29 +138,29 @@
     list.appendChild(tr);
     newtask.value = "";
   }); // チェックボックスの表示の切替
-  let all = document.getElementById("r1");
-  let working = document.getElementById("r2");
-  let done = document.getElementById("r3");
+  const all = document.getElementById("r1");
+  const working = document.getElementById("r2");
+  const done = document.getElementById("r3");
 
   // 作業中
   working.addEventListener("click", () => {
-    if (workButton.innerHTML !== "作業中") {
-      task.classList.add("none");
+    if (newtask.innerHTML !== "作業中") {
+      newtask.classList.add("none");
     } else {
-      task.classList.remove("none");
+      newtask.classList.remove("none");
     }
   });
   // 完了
   done.addEventListener("click", () => {
-    if (workButton.innerHTML !== "作業中") {
-      task.classList.add("none");
+    if (newtask.innerHTML !== "完了") {
+      newtask.classList.add("none");
     } else {
-      task.classList.remove("none");
+      newtask.classList.remove("none");
     }
   });
   // 全て
   all.addEventListener("click", () => {
-    task.classList.remove("none");
+    newtask.classList.remove("none");
   });
   document.getElementById("newtask").value = "";
 }
