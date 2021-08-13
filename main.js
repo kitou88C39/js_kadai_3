@@ -69,98 +69,155 @@
 // }
 
 "use strict";
-{
-  //inputタグを取得して変数に入れる
-  const newtask = document.getElementById("newtask");
-  // 入力された値をリストに追加する
-  const add = document.getElementById("add");
-  //削除ボタンを押したときに何かの処理を実行したい
-  const deleteTask = (btn) => {
-    const task = btn.closest("tr");
-    const tbody = task.closest("tbody");
-    //remove関数を呼び出してタスク(テーブルの一行の要素)を削除します
-    task.remove();
-    tbody.querySelectorAll("tr").forEach((x, y) => {
-      x.setAttribute("id", `id-${y + 1}`);
-      x.querySelector("td").textContent = y + 1;
-    });
-    id--;
-  };
-  //idの変数を用意
-  let id = 0;
 
-  add.addEventListener("click", () => {
-    if (newtask.value == "") {
-      return;
-    }
-    id += 1;
-    const list = document.getElementById("list");
-    const tr = document.createElement("tr");
+//inputタグを取得して変数に入れる
+const newtask = document.getElementById("newtask");
+// 入力された値をリストに追加する
+const add = document.getElementById("add");
+//削除ボタンを押したときに何かの処理を実行したい
+const deleteTask = (btn) => {
+  const task = btn.closest("tr");
+  const tbody = task.closest("tbody");
+  //remove関数を呼び出してタスク(テーブルの一行の要素)を削除します
+  task.remove();
+  tbody.querySelectorAll("tr").forEach((x, y) => {
+    x.setAttribute("id", `id-${y + 1}`);
+    x.querySelector("td").textContent = y + 1;
+  });
+  id--;
+};
+//idの変数を用意
+let id = 0;
 
-    const taskId = `task-${id}`;
-    tr.id = taskId;
-    const comment = newtask.value;
+add.addEventListener("click", () => {
+  if (newtask.value == "") {
+    return;
+  }
+  id += 1;
+  const list = document.getElementById("list");
+  const tr = document.createElement("tr");
 
-    // 分かりやすい変数名をつけます
-    const workButton = document.createElement("button");
-    workButton.innerHTML = "作業中"; //完了の状態でボタンをクリックすると作業中へ変更される
-    //作業中の状態でボタンをクリックすると完了へ変更される
-    workButton.addEventListener("click", () => {
-      if (workButton.innerHTML === "作業中") {
-        workButton.innerHTML = "完了";
-      } else {
-        workButton.innerHTML = "作業中";
-      }
-    });
+  const taskId = `task-${id}`;
+  tr.id = taskId;
+  const comment = newtask.value;
 
-    const deleteButton = document.createElement("button");
-    deleteButton.innerHTML = "削除";
-
-    deleteButton.addEventListener("click", () => deleteTask(deleteButton));
-    // テーブルの行に必要なデータの配列を作成します
-    const cloumns = [id, comment, workButton, deleteButton];
-
-    // 配列の中身を一つずつ取り出して処理をします
-    cloumns.forEach((cloumn) => {
-      // テーブルの列を作成します
-      const td = document.createElement("td");
-
-      // HTMLタグ処理を変更
-      if (cloumn instanceof HTMLElement) {
-        td.appendChild(cloumn);
-      } else {
-        td.innerText = cloumn;
-      }
-      //行に列を追加します
-      tr.appendChild(td);
-    });
-    //テーブルに行を追加
-    list.appendChild(tr);
-    newtask.value = "";
-  }); // チェックボックスの表示の切替
-  const all = document.getElementById("r1");
-  const working = document.getElementById("r2");
-  const done = document.getElementById("r3");
-
-  // 作業中
-  working.addEventListener("click", () => {
-    if (newtask.innerHTML !== "作業中") {
-      newtask.classList.add("none");
+  // 分かりやすい変数名をつけます
+  const workButton = document.createElement("button");
+  workButton.innerHTML = "作業中"; //完了の状態でボタンをクリックすると作業中へ変更される
+  //作業中の状態でボタンをクリックすると完了へ変更される
+  workButton.addEventListener("click", () => {
+    if (workButton.innerHTML === "作業中") {
+      workButton.innerHTML = "完了";
     } else {
-      newtask.classList.remove("none");
+      workButton.innerHTML = "作業中";
     }
   });
-  // 完了
-  done.addEventListener("click", () => {
-    if (newtask.innerHTML !== "完了") {
-      newtask.classList.add("none");
+
+  const deleteButton = document.createElement("button");
+  deleteButton.innerHTML = "削除";
+
+  deleteButton.addEventListener("click", () => deleteTask(deleteButton));
+  // テーブルの行に必要なデータの配列を作成します
+  const cloumns = [id, comment, workButton, deleteButton];
+
+  // 配列の中身を一つずつ取り出して処理をします
+  cloumns.forEach((cloumn) => {
+    // テーブルの列を作成します
+    const td = document.createElement("td");
+
+    // HTMLタグ処理を変更
+    if (cloumn instanceof HTMLElement) {
+      td.appendChild(cloumn);
     } else {
-      newtask.classList.remove("none");
+      td.innerText = cloumn;
     }
+    //行に列を追加します
+    tr.appendChild(td);
   });
-  // 全て
-  all.addEventListener("click", () => {
-    newtask.classList.remove("none");
-  });
-  document.getElementById("newtask").value = "";
+  //テーブルに行を追加
+  list.appendChild(tr);
+  newtask.value = "";
+});
+// チェックボックスの表示の切替
+function radioChange() {
+  const radio1_1 = document.getElementById("radio-all-select");
+  const radio1_2 = document.getElementById("radio-working-select");
+  const radio1_3 = document.getElementById("radio-done-select");
+
+  if (radio1_1.checked) {
+    tasks.slice();
+    return newTasks(tasks);
+  } else if (radio1_2.checked) {
+    const filterworking = tasks.filter((newtask) => {
+      return newtask.status === "作業中";
+    });
+    return newTasks(filterworking);
+  } else if (radio1_3.checked) {
+    const filterdone = tasks.filter((newtask) => {
+      return newtask.status === "完了";
+    });
+    return newTasks(filterdone);
+  }
 }
+// チェックボックスの表示の切替
+// const option = document.getElementsByName("p");
+
+// const checkTasks = () => {
+//   const workingTasks = document.querySelectorAll(".work");
+//   const doneTasks = document.querySelectorAll(".finish");
+
+//   if (option[1].checked) {
+//     workingTasks.forEach((element) => {
+//       newtask.style.display = "";
+//     });
+//     doneTasks.forEach((element) => {
+//       newtask.style.display = "none";
+//     });
+//   } else if (option[2].checked) {
+//     doneTasks.forEach((element) => {
+//       newtask.style.display = "none";
+//     });
+//     doneTasks.forEach((element) => {
+//       newtask.style.display = "";
+//     });
+//   } else {
+//       progressTasks.forEach((element) => {
+//         element.style.display = "";
+//       });
+//       doneTasks.forEach((element) => {
+//         element.style.display = "";
+//       });
+//     }
+//   };
+// }
+
+//   // チェックボックスの表示の切替
+
+//   function buttonClick() {
+//     const all = document.getElementById("r1");
+//     const working = document.getElementById("r2");
+//     const done = document.getElementById("r3");
+
+//     // 作業中
+//     working.addEventListener("click", () => {
+//       if (newtask.innerHTML !== "作業中") {
+//         newtask.classList.add("none");
+//       } else {
+//         newtask.classList.remove("none");
+//       }
+//     });
+//     // 完了
+//     done.addEventListener("click", () => {
+//       if (newtask.innerHTML !== "完了") {
+//         newtask.classList.add("none");
+//       } else {
+//         newtask.classList.remove("none");
+//       }
+//     });
+//     // 全て
+//     all.addEventListener("click", () => {
+//       newtask.classList.remove("none");
+//     });
+//     document.getElementById("newtask").value = "";
+//   }
+//  }

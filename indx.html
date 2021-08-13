@@ -8,12 +8,18 @@
 </head>
 <body>
     <h1>TODOリスト</h1>
+
+    <form class="radio">
+	    <input type="radio" name="list" checked="checked" id="radio-all-select" onchange="radioChange()" value="all">全て
+	    <input type="radio" name="list" id="radio-working-select" onchange="radioChange()" value="working">作業中
+	    <input type="radio" name="list" id="radio-done-select" onchange="radioChange()" value="done">完了
+    </form>
     
-    <p class="radio">
+    <!-- <p class="radio">
       <input type="radio" id="r1" name="list" value="1" checked><label for="r1">全て</label>
       <input type="radio" id="r2" name="list" value="2"><label for="r2">作業中</label>
       <input type="radio" id="r3" name="list" value="3"><label for="r3">完了</label>
-    </p>
+    </p> -->
 
 <table>
   <thead>
