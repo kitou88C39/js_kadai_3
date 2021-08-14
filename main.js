@@ -195,7 +195,6 @@ const checkTasks = () => {
 };
 
 // チェックボックスの表示の切替
-
 //   function buttonClick() {
 //     const all = document.getElementById("r1");
 //     const working = document.getElementById("r2");
