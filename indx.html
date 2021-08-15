@@ -15,10 +15,15 @@
     </form>
      -->
     <p class="radio">
-      <input type="radio"  name="list" value="1" checked ="checked"
-      ><label for="r1">全て</label>
-      <input type="radio" id="radio-working" name="list" value="2"><label for="r2">作業中</label>
-      <input type="radio" id="radio-done" name="list" value="3"><label for="r3">完了</label>
+      <input type="radio"  name="list" value="1" 
+       checked ="checked"
+        onchange="checkTasks()">
+      <label for="r1">全て</label>
+
+      <input type="radio" id="radio-working" name="list" value="2"
+        onchange="checkTasks()"><label for="r2">作業中</label>
+      <input type="radio" id="radio-done" name="list" value="3"
+        onchange="checkTasks()"><label for="r3">完了</label>
     </p>
 
 <table>

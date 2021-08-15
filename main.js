@@ -107,10 +107,16 @@ add.addEventListener("click", () => {
   workButton.innerHTML = "作業中"; //完了の状態でボタンをクリックすると作業中へ変更される
   //作業中の状態でボタンをクリックすると完了へ変更される
   workButton.addEventListener("click", () => {
+    // クリックされたボタンがある親のtrタグを取得する
+    const tr = workButton.closest("tr");
     if (workButton.innerHTML === "作業中") {
       workButton.innerHTML = "完了";
+      tr.classList.add("finish");
+      tr.classList.remove("work");
     } else {
       workButton.innerHTML = "作業中";
+      tr.classList.add("work");
+      tr.classList.remove("finish");
     }
   });
 
@@ -164,7 +170,7 @@ add.addEventListener("click", () => {
 //   }
 // }
 // チェックボックスの表示の切替
-const option = document.getElementsByName("radio");
+const option = document.getElementsByName("list");
 
 const checkTasks = () => {
   const workingTasks = document.querySelectorAll(".work");
@@ -175,21 +181,21 @@ const checkTasks = () => {
       workingTasks.style.display = "";
     });
     doneTasks.forEach((doneTasks) => {
-      doneTask.style.display = "none";
+      doneTasks.style.display = "none";
     });
   } else if (option[2].checked) {
     doneTasks.forEach((doneTasks) => {
-      doneTasks.style.display = "none";
+      doneTasks.style.display = "";
     });
     workingTasks.forEach((workingTasks) => {
-      workingTasks.style.display = "";
+      workingTasks.style.display = "none";
     });
   } else {
     workingTasks.forEach((workingTasks) => {
       workingTasks.style.display = "";
     });
     doneTasks.forEach((doneTasks) => {
-      doneTask.style.display = "";
+      doneTasks.style.display = "";
     });
   }
 };
