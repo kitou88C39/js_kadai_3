@@ -7,6 +7,49 @@
     <title>課題③</title>
 </head>
 <body>
+    <h1>TODOリスト</h1>
+    <!-- <form class="radio">
+	    <input type="radio" name="list" checked="checked" id="radio-all-select" onchange="radioChange()" value="all">全て
+	    <input type="radio" name="list" id="radio-working-select" onchange="radioChange()" value="working">作業中
+	    <input type="radio" name="list" id="radio-done-select" onchange="radioChange()" value="done">完了
+    </form>
+     -->
+    <p class="radio">
+      <input type="radio"  name="list" value="1" 
+       checked ="checked"
+        onchange="checkTasks()">
+      <label for="r1">全て</label>
+
+      <input type="radio" id="radio-working" name="list" value="2"
+        onchange="checkTasks()"><label for="r2">作業中</label>
+      <input type="radio" id="radio-done" name="list" value="3"
+        onchange="checkTasks()"><label for="r3">完了</label>
+    </p>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>コメント</th>
+      <th>状態</th>
+    </tr>
+  </thead>
+    <tr>
+      <td></td>
+      <!-- <td>0</td>
+      <td>test</td>
+      <td><button>作業中</button></td>
+      <td><button>完了中</button></td>
+      <td><button>削除</button></td> -->
+    </tr>
+    <tbody id="list"></tbody>
+</table>
+  
+    
+    <h2>新規タスクの追加</h2>
+    <input type="text" id="newtask"/>
+    <button id="add">追加</button>
+
     <script src="main.js"></script>
 </body>
 </html>
